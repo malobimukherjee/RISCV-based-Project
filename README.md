@@ -5,6 +5,11 @@
 
 **Implementing a Hand-dryer:**
 
+Block Diagram of the Implementation:
+
+<img width="446" alt="image" src="https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/9a824507-6431-4f92-acc0-d9a41b901dd8">
+
+
 C Code:
 
 ```bash
