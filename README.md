@@ -5,12 +5,19 @@
 
 **Implementing a Hand-dryer:**
 
-**Block Diagram of the Implementation:**
+**Block Diagram of the Hand Dryer:**
+
+![Screenshot from 2023-10-05 01-27-09](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/e4ae013b-ca3a-4fff-a809-ddc6301d7233)
+
+
+**Flowchart of the Implementation:**
 
 <img width="1000" alt="image" src="https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/9a824507-6431-4f92-acc0-d9a41b901dd8">
 
 
-**C Code:**
+**C Code of the above Implementation:**
+
+
 
 ```bash
 #include<stdio.h>
