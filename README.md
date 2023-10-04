@@ -1,5 +1,7 @@
 # RISCV-based-Project
 
+**Implementing a Hand-dryer:**
+
 
 
 **Objective:**
@@ -18,7 +20,6 @@
     • Jumper Wires
     • USB cable
 
-**Implementing a Hand-dryer:**
 
 **Block Diagram of the Hand Dryer:**
 
