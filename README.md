@@ -1,6 +1,6 @@
 # RISCV-based-Project
 
-**Implementing a Hand-dryer:**
+## Implementing a Hand-dryer:
 
 
 
