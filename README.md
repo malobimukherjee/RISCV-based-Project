@@ -2,6 +2,20 @@
 
 
 
+**Objective:**
+    • To be able to detect the motion using a PIR sensor.
+    • To turn on the FAN of the motor when the motion is detected in PIR Sensor.
+
+**Requirements:**
+
+    • PIR Sensor
+    • STM32 board
+    • STM32 Cube IDE
+    • DC motor
+    • Motor Driver
+    • 9V Battery
+    • Jumper Wires
+    • USB cable
 
 **Implementing a Hand-dryer:**
 
