@@ -5,12 +5,12 @@
 
 **Implementing a Hand-dryer:**
 
-Block Diagram of the Implementation:
+**Block Diagram of the Implementation:**
 
 <img width="1000" alt="image" src="https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/9a824507-6431-4f92-acc0-d9a41b901dd8">
 
 
-C Code:
+**C Code:**
 
 ```bash
 #include<stdio.h>
@@ -80,6 +80,7 @@ I compiled the C code using the commands:
 gcc hand-dryer.c
 ./a.out
 ```
+**Converting C Code to Assembly Language:**
 
 I used following commands to convert it into assembly language instructions:
 
@@ -164,6 +165,7 @@ Assembly language instructions for the above code:
   e0:	000080e7          	jalr	ra # dc <.L9>
   e4:	ff9ff06f          	j	dc <.L9>
 ```
+**Extracting Unique Instructions:**
 
 I used this code in python to obtain the unique instructions:
 
