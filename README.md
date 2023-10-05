@@ -106,12 +106,6 @@ gcc hand-dryer.c
 ```
 **Converting C Code to Assembly Language:**
 
-I used following commands to convert it into assembly language instructions:
-
-```bash
-riscv64-unknown-elf-gcc -c -mabi=lp64 -march=rv64i -o hand-dryer.o hand-dryer.c
-riscv64-unknown-elf-objdump -d hand-dryer.o
-```
 Assembly language instructions for the above code:
 
 ```bash
