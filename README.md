@@ -82,13 +82,15 @@ int main()  {
 
 ```
 
-I compiled the C code using the commands:
+
+**Converting C Code to Assembly Language:**
+
+I compiled the C code and converted into assembly language using the commands:
 
 ```bash
 riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -ffreestanding -nostdlib -o ./hand-dryer hand-dryer.c
 riscv32-unknown-elf-objdump -d hand-dryer > hand-dryer.txt
 ```
-**Converting C Code to Assembly Language:**
 
 Assembly language instructions for the above code:
 
