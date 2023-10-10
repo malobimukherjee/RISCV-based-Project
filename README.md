@@ -88,7 +88,7 @@ int main()  {
 I compiled the C code and converted into assembly language using the commands:
 
 ```bash
-riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -ffreestanding -nostdlib -o ./hand-dryer hand-dryer.c
+riscv32-unknown-elf-gcc -r -mabi=ilp32 -march=rv32im -ffreestanding -nostdlib -o ./hand-dryer hand-dryer.c
 riscv32-unknown-elf-objdump -d hand-dryer > hand-dryer.txt
 ```
 
@@ -100,37 +100,33 @@ hand-dryer:     file format elf32-littleriscv
 
 Disassembly of section .text:
 
-00000000 <main>:
-   0:	fe010113          	add	sp,sp,-32
-   4:	00812e23          	sw	s0,28(sp)
-   8:	02010413          	add	s0,sp,32
-   c:	001f7793          	and	a5,t5,1
-  10:	fef42623          	sw	a5,-20(s0)
-  14:	fec42703          	lw	a4,-20(s0)
-  18:	00100793          	li	a5,1
-  1c:	02f71063          	bne	a4,a5,3c <.L2>
-  20:	ffd00793          	li	a5,-3
-  24:	fef42423          	sw	a5,-24(s0)
-  28:	fe442783          	lw	a5,-28(s0)
-  2c:	00ff7f33          	and	t5,t5,a5
-  30:	002f6793          	or	a5,t5,2
-  34:	fef42423          	sw	a5,-24(s0)
-  38:	01c0006f          	j	54 <.L3>
-
-0000003c <.L2>:
-  3c:	ffd00793          	li	a5,-3
-  40:	fef42423          	sw	a5,-24(s0)
-  44:	fe442783          	lw	a5,-28(s0)
-  48:	00ff7f33          	and	t5,t5,a5
-  4c:	000f6793          	or	a5,t5,0
-  50:	fef42423          	sw	a5,-24(s0)
-
-00000054 <.L3>:
-  54:	00000793          	li	a5,0
-  58:	00078513          	mv	a0,a5
-  5c:	01c12403          	lw	s0,28(sp)
-  60:	02010113          	add	sp,sp,32
-  64:	00008067          	ret
+00010074 <main>:
+   10074:	fe010113          	add	sp,sp,-32
+   10078:	00812e23          	sw	s0,28(sp)
+   1007c:	02010413          	add	s0,sp,32
+   10080:	001f7793          	and	a5,t5,1
+   10084:	fef42623          	sw	a5,-20(s0)
+   10088:	fec42703          	lw	a4,-20(s0)
+   1008c:	00100793          	li	a5,1
+   10090:	02f71063          	bne	a4,a5,100b0 <main+0x3c>
+   10094:	ffd00793          	li	a5,-3
+   10098:	fef42423          	sw	a5,-24(s0)
+   1009c:	fe442783          	lw	a5,-28(s0)
+   100a0:	00ff7f33          	and	t5,t5,a5
+   100a4:	002f6793          	or	a5,t5,2
+   100a8:	fef42423          	sw	a5,-24(s0)
+   100ac:	01c0006f          	j	100c8 <main+0x54>
+   100b0:	ffd00793          	li	a5,-3
+   100b4:	fef42423          	sw	a5,-24(s0)
+   100b8:	fe442783          	lw	a5,-28(s0)
+   100bc:	00ff7f33          	and	t5,t5,a5
+   100c0:	000f6793          	or	a5,t5,0
+   100c4:	fef42423          	sw	a5,-24(s0)
+   100c8:	00000793          	li	a5,0
+   100cc:	00078513          	mv	a0,a5
+   100d0:	01c12403          	lw	s0,28(sp)
+   100d4:	02010113          	add	sp,sp,32
+   100d8:	00008067          	ret
 ```
 **Extracting Unique Instructions:**
 
@@ -159,13 +155,13 @@ The output of the code:
 Number of different instructions: 10
 List of unique instructions:
 j
-sw
 and
 or
-ret
+sw
+bne
 lw
 mv
 add
 li
-bne
+ret
 ```
