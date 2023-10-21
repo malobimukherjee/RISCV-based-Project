@@ -36,19 +36,22 @@
 
 
 ```bash
+
 int main()  {
 
        int input_pirState;
        //int output_fanspeed;
        int output_motorDir1;                        //Using clockwise direction only                       
        int dummy;
-    
+       int i, j;
     
         while(1) {
         // Read PIR sensor data into x30
-	asm (
-            "and %0, x30, 1"
+	asm volatile(
+            "andi %0, x30, 1"
             : "=r"(input_pirState)
+            :
+            :
         );
 
        
@@ -57,28 +60,35 @@ int main()  {
         //PIR sensor gives 1 if it detects motion
         if (input_pirState == 1) {
             dummy=0xFFFFFFFD;
-            asm(
-            "and x30,x30, %0\n\t"     // Load immediate 1 into x30
-            "or %1, x30,2"                 // output at 2nd bit , that switches on the motor
-            :"=r"(dummy)
-            :"r"(output_motorDir1)         //Motor turns ON
+            asm volatile(
+            "and x30, x30, %0\n\t"     // Load immediate 1 into x30
+            "or x30, x30,2"                 // output at 2nd bit , that switches on the motor
+            :
+            :"r"(dummy)
+            :"x30"         //Motor turns ON
         );
-        } 
+        
+        //for (i = 0; i < 10000; i++) {
+            //for (j = 0; j < 1000000; j++) {
+            //}
+        //}
+      }  
         else {
             //sensor not detecting motion
             dummy=0xFFFFFFFD;
-            asm(
-            "and x30,x30, %0\n\t"     // Load immediate 1 into x30
-            "or %1, x30,0"            //// output at 2nd bit , that switches off the motor
-            :"=r"(dummy)
-            :"r"(output_motorDir1)
+            asm volatile(
+            "and x30, x30, %0\n\t"     // Load immediate 1 into x30
+            "or x30, x30,0"            //// output at 2nd bit , that switches off the motor
+            :
+            :"r"(dummy)
+            :"x30"
         );
         }
 
     return 0;
 }
 
-}
+}           
 
 ```
 
@@ -95,38 +105,38 @@ riscv32-unknown-elf-objdump -d hand-dryer > hand-dryer.txt
 Assembly language instructions for the above code:
 
 ```bash
-hand-dryer:     file format elf32-littleriscv
+out:     file format elf32-littleriscv
 
 
 Disassembly of section .text:
 
-00010074 <main>:
-   10074:	fe010113          	add	sp,sp,-32
-   10078:	00812e23          	sw	s0,28(sp)
-   1007c:	02010413          	add	s0,sp,32
-   10080:	001f7793          	and	a5,t5,1
-   10084:	fef42623          	sw	a5,-20(s0)
-   10088:	fec42703          	lw	a4,-20(s0)
-   1008c:	00100793          	li	a5,1
-   10090:	02f71063          	bne	a4,a5,100b0 <main+0x3c>
-   10094:	ffd00793          	li	a5,-3
-   10098:	fef42423          	sw	a5,-24(s0)
-   1009c:	fe442783          	lw	a5,-28(s0)
-   100a0:	00ff7f33          	and	t5,t5,a5
-   100a4:	002f6793          	or	a5,t5,2
-   100a8:	fef42423          	sw	a5,-24(s0)
-   100ac:	01c0006f          	j	100c8 <main+0x54>
-   100b0:	ffd00793          	li	a5,-3
-   100b4:	fef42423          	sw	a5,-24(s0)
-   100b8:	fe442783          	lw	a5,-28(s0)
-   100bc:	00ff7f33          	and	t5,t5,a5
-   100c0:	000f6793          	or	a5,t5,0
-   100c4:	fef42423          	sw	a5,-24(s0)
-   100c8:	00000793          	li	a5,0
-   100cc:	00078513          	mv	a0,a5
-   100d0:	01c12403          	lw	s0,28(sp)
-   100d4:	02010113          	add	sp,sp,32
-   100d8:	00008067          	ret
+00010054 <main>:
+   10054:	fe010113          	addi	sp,sp,-32
+   10058:	00812e23          	sw	s0,28(sp)
+   1005c:	02010413          	addi	s0,sp,32
+   10060:	001f7793          	andi	a5,t5,1
+   10064:	fef42623          	sw	a5,-20(s0)
+   10068:	fec42703          	lw	a4,-20(s0)
+   1006c:	00100793          	li	a5,1
+   10070:	00f71e63          	bne	a4,a5,1008c <main+0x38>
+   10074:	ffd00793          	li	a5,-3
+   10078:	fef42423          	sw	a5,-24(s0)
+   1007c:	fe842783          	lw	a5,-24(s0)
+   10080:	00ff7f33          	and	t5,t5,a5
+   10084:	002f6f13          	ori	t5,t5,2
+   10088:	0180006f          	j	100a0 <main+0x4c>
+   1008c:	ffd00793          	li	a5,-3
+   10090:	fef42423          	sw	a5,-24(s0)
+   10094:	fe842783          	lw	a5,-24(s0)
+   10098:	00ff7f33          	and	t5,t5,a5
+   1009c:	000f6f13          	ori	t5,t5,0
+   100a0:	00000793          	li	a5,0
+   100a4:	00078513          	mv	a0,a5
+   100a8:	01c12403          	lw	s0,28(sp)
+   100ac:	02010113          	addi	sp,sp,32
+   100b0:	00008067          	ret
+
+
 ```
 **Extracting Unique Instructions:**
 
