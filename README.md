@@ -180,16 +180,19 @@ for instruction in unique_instructions:
 The output of the code:
 
 ```bash
-Number of different instructions: 10
+Number of different instructions: 13
 List of unique instructions:
-j
-and
-or
-sw
-bne
-lw
-mv
-add
+ori
+addi
 li
+bne
 ret
+lui
+bge
+mv
+sw
+and
+j
+andi
+lw
 ```
