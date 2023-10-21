@@ -68,10 +68,10 @@ int main()  {
             :"x30"         //Motor turns ON
         );
         
-        //for (i = 0; i < 10000; i++) {
-            //for (j = 0; j < 1000000; j++) {
-            //}
-        //}
+        for (i = 0; i < 10000; i++) {
+            for (j = 0; j < 1000000; j++) {
+            }
+        }
       }  
         else {
             //sensor not detecting motion
@@ -98,13 +98,14 @@ int main()  {
 I compiled the C code and converted into assembly language using the commands:
 
 ```bash
-riscv32-unknown-elf-gcc -r -mabi=ilp32 -march=rv32im -ffreestanding -nostdlib -o ./hand-dryer hand-dryer.c
-riscv32-unknown-elf-objdump -d hand-dryer > hand-dryer.txt
+riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -ffreestanding -nostdlib -o ./out hand-dryer1.c 
+riscv64-unknown-elf-objdump -d -r out > asm.txt
 ```
 
 Assembly language instructions for the above code:
 
 ```bash
+
 out:     file format elf32-littleriscv
 
 
@@ -115,27 +116,44 @@ Disassembly of section .text:
    10058:	00812e23          	sw	s0,28(sp)
    1005c:	02010413          	addi	s0,sp,32
    10060:	001f7793          	andi	a5,t5,1
-   10064:	fef42623          	sw	a5,-20(s0)
-   10068:	fec42703          	lw	a4,-20(s0)
+   10064:	fef42223          	sw	a5,-28(s0)
+   10068:	fe442703          	lw	a4,-28(s0)
    1006c:	00100793          	li	a5,1
-   10070:	00f71e63          	bne	a4,a5,1008c <main+0x38>
+   10070:	06f71263          	bne	a4,a5,100d4 <main+0x80>
    10074:	ffd00793          	li	a5,-3
-   10078:	fef42423          	sw	a5,-24(s0)
-   1007c:	fe842783          	lw	a5,-24(s0)
+   10078:	fef42023          	sw	a5,-32(s0)
+   1007c:	fe042783          	lw	a5,-32(s0)
    10080:	00ff7f33          	and	t5,t5,a5
    10084:	002f6f13          	ori	t5,t5,2
-   10088:	0180006f          	j	100a0 <main+0x4c>
-   1008c:	ffd00793          	li	a5,-3
-   10090:	fef42423          	sw	a5,-24(s0)
-   10094:	fe842783          	lw	a5,-24(s0)
-   10098:	00ff7f33          	and	t5,t5,a5
-   1009c:	000f6f13          	ori	t5,t5,0
-   100a0:	00000793          	li	a5,0
-   100a4:	00078513          	mv	a0,a5
-   100a8:	01c12403          	lw	s0,28(sp)
-   100ac:	02010113          	addi	sp,sp,32
-   100b0:	00008067          	ret
-
+   10088:	fe042623          	sw	zero,-20(s0)
+   1008c:	0340006f          	j	100c0 <main+0x6c>
+   10090:	fe042423          	sw	zero,-24(s0)
+   10094:	0100006f          	j	100a4 <main+0x50>
+   10098:	fe842783          	lw	a5,-24(s0)
+   1009c:	00178793          	addi	a5,a5,1
+   100a0:	fef42423          	sw	a5,-24(s0)
+   100a4:	fe842703          	lw	a4,-24(s0)
+   100a8:	000f47b7          	lui	a5,0xf4
+   100ac:	23f78793          	addi	a5,a5,575 # f423f <__global_pointer$+0xe2943>
+   100b0:	fee7d4e3          	bge	a5,a4,10098 <main+0x44>
+   100b4:	fec42783          	lw	a5,-20(s0)
+   100b8:	00178793          	addi	a5,a5,1
+   100bc:	fef42623          	sw	a5,-20(s0)
+   100c0:	fec42703          	lw	a4,-20(s0)
+   100c4:	000027b7          	lui	a5,0x2
+   100c8:	70f78793          	addi	a5,a5,1807 # 270f <main-0xd945>
+   100cc:	fce7d2e3          	bge	a5,a4,10090 <main+0x3c>
+   100d0:	0180006f          	j	100e8 <main+0x94>
+   100d4:	ffd00793          	li	a5,-3
+   100d8:	fef42023          	sw	a5,-32(s0)
+   100dc:	fe042783          	lw	a5,-32(s0)
+   100e0:	00ff7f33          	and	t5,t5,a5
+   100e4:	000f6f13          	ori	t5,t5,0
+   100e8:	00000793          	li	a5,0
+   100ec:	00078513          	mv	a0,a5
+   100f0:	01c12403          	lw	s0,28(sp)
+   100f4:	02010113          	addi	sp,sp,32
+   100f8:	00008067          	ret
 
 ```
 **Extracting Unique Instructions:**
