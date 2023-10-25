@@ -195,8 +195,8 @@ int main()  {
 I compiled the C code and converted into assembly language using the commands:
 
 ```bash
-riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -ffreestanding -nostdlib -o ./out hand-dryer1.c 
-riscv64-unknown-elf-objdump -d -r out > asm.txt
+riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -ffreestanding -nostdlib -o Project_1.o Project_1.c 
+riscv64-unknown-elf-objdump -d -r Project_1.o > asm.txt
 ```
 
 Assembly language instructions for the above code:
