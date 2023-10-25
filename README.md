@@ -92,6 +92,103 @@ int main()  {
 
 ```
 
+Testing the C Code, changing the input value:
+
+```bash
+#include<stdio.h>
+int main()  {
+
+       int input_pirState;
+       int output_motorDir1;                        //Using clockwise direction only                       
+       int dummy;
+       int i, j;
+        
+       for( i = 0; i<10; i++) 
+       {
+        // Read PIR sensor data into x30
+        
+        if(i<5)
+ 			j=1;
+ 			else
+ 			j=0;
+ 		asm volatile(
+ 		"or x30, x30, %1\n\t"
+ 		"andi %0, x30, 0x01\n\t"
+ 		: "=r" (input_pirState)
+ 		: "r" (j)
+ 		: "x30"
+ 		);
+	
+        /*dummy=0x0FFFFFFE;
+        asm volatile(
+		"and x30, x30, %1\n\t"
+    		"or x30, x30, %0\n\t"
+    		:
+		:"r"(dummy)
+		:"x30"
+		);
+	  
+	asm volatile(
+			"addi x10, x30, 0\n\t"
+			"or %0, x10, 1\n\t"
+			"add x30, x10, 0\n\t"
+			:"=r"(input_pirState)
+			:
+			:"x30","x10"
+			); 
+         */
+         
+        printf("reading sensor values --- PIR State %d\n",input_pirState);
+       
+        
+
+        //PIR sensor gives 1 if it detects motion
+        if (input_pirState != 0) {
+            dummy=0x0FFFFFFD;
+            asm volatile(
+            "and x30, x30, %0\n\t"     
+            "ori x30, x30,2\n\t"                 // output at 2nd bit (x30[1]), that switches on the motor
+            :"=r"(output_motorDir1)
+            :"r"(dummy)
+            :"x30"         //Motor turns ON
+        );
+         printf("PIR Sensor ON, FAN is ON %d\n",output_motorDir1);
+        for (i = 0; i < 10000; i++) {                //Delay
+            for (j = 0; j < 1000000; j++) {
+            }
+        }
+        asm volatile(
+            "and x30, x30, %0\n\t"     
+            "ori x30, x30,0\n\t"                 // output at 2nd bit (x30[1]), that switches OFF the motor
+            :"=r"(output_motorDir1)
+            :"r"(dummy)
+            :"x30"         //Motor turns OFF after few seconds
+        );
+        printf("Motor turns OFF after drying the hand %d\n",output_motorDir1);
+      }  
+        else {
+            //sensor not detecting motion
+            dummy=0x0FFFFFFD;
+            asm volatile(
+            "and x30, x30, %0\n\t"     
+            "ori x30, x30,0\n\t"            // output at 2nd bit (x30[1]) , that switches off the motor
+            :"=r"(output_motorDir1)
+            :"r"(dummy)
+            :"x30"
+        );
+        printf("PIR Sensor OFF, FAN is OFF %d\n",output_motorDir1);
+        }
+    asm volatile(
+            "li x30, 0xFFFFFFFF\n\t"
+        );     
+      
+    
+}
+  return 0;
+}
+```
+
+
 
 **Converting C Code to Assembly Language:**
 
@@ -106,54 +203,87 @@ Assembly language instructions for the above code:
 
 ```bash
 
-out:     file format elf32-littleriscv
+Project_1.o:     file format elf64-littleriscv
 
 
 Disassembly of section .text:
 
-00010054 <main>:
-   10054:	fe010113          	addi	sp,sp,-32
-   10058:	00812e23          	sw	s0,28(sp)
-   1005c:	02010413          	addi	s0,sp,32
-   10060:	001f7793          	andi	a5,t5,1
-   10064:	fef42223          	sw	a5,-28(s0)
-   10068:	fe442703          	lw	a4,-28(s0)
-   1006c:	00100793          	li	a5,1
-   10070:	06f71263          	bne	a4,a5,100d4 <main+0x80>
-   10074:	ffd00793          	li	a5,-3
-   10078:	fef42023          	sw	a5,-32(s0)
-   1007c:	fe042783          	lw	a5,-32(s0)
-   10080:	00ff7f33          	and	t5,t5,a5
-   10084:	002f6f13          	ori	t5,t5,2
-   10088:	fe042623          	sw	zero,-20(s0)
-   1008c:	0340006f          	j	100c0 <main+0x6c>
-   10090:	fe042423          	sw	zero,-24(s0)
-   10094:	0100006f          	j	100a4 <main+0x50>
-   10098:	fe842783          	lw	a5,-24(s0)
-   1009c:	00178793          	addi	a5,a5,1
+0000000000010078 <main>:
+   10078:	fd010113          	addi	sp,sp,-48
+   1007c:	02813423          	sd	s0,40(sp)
+   10080:	03010413          	addi	s0,sp,48
+   10084:	fe042623          	sw	zero,-20(s0)
+   10088:	0f40006f          	j	1017c <main+0x104>
+   1008c:	fec42783          	lw	a5,-20(s0)
+   10090:	0007871b          	sext.w	a4,a5
+   10094:	00400793          	li	a5,4
+   10098:	00e7c863          	blt	a5,a4,100a8 <main+0x30>
+   1009c:	00100793          	li	a5,1
    100a0:	fef42423          	sw	a5,-24(s0)
-   100a4:	fe842703          	lw	a4,-24(s0)
-   100a8:	000f47b7          	lui	a5,0xf4
-   100ac:	23f78793          	addi	a5,a5,575 # f423f <__global_pointer$+0xe2943>
-   100b0:	fee7d4e3          	bge	a5,a4,10098 <main+0x44>
-   100b4:	fec42783          	lw	a5,-20(s0)
-   100b8:	00178793          	addi	a5,a5,1
-   100bc:	fef42623          	sw	a5,-20(s0)
-   100c0:	fec42703          	lw	a4,-20(s0)
-   100c4:	000027b7          	lui	a5,0x2
-   100c8:	70f78793          	addi	a5,a5,1807 # 270f <main-0xd945>
-   100cc:	fce7d2e3          	bge	a5,a4,10090 <main+0x3c>
-   100d0:	0180006f          	j	100e8 <main+0x94>
-   100d4:	ffd00793          	li	a5,-3
-   100d8:	fef42023          	sw	a5,-32(s0)
-   100dc:	fe042783          	lw	a5,-32(s0)
-   100e0:	00ff7f33          	and	t5,t5,a5
-   100e4:	000f6f13          	ori	t5,t5,0
-   100e8:	00000793          	li	a5,0
-   100ec:	00078513          	mv	a0,a5
-   100f0:	01c12403          	lw	s0,28(sp)
-   100f4:	02010113          	addi	sp,sp,32
-   100f8:	00008067          	ret
+   100a4:	0080006f          	j	100ac <main+0x34>
+   100a8:	fe042423          	sw	zero,-24(s0)
+   100ac:	fe842783          	lw	a5,-24(s0)
+   100b0:	00ff6f33          	or	t5,t5,a5
+   100b4:	001f7793          	andi	a5,t5,1
+   100b8:	fef42223          	sw	a5,-28(s0)
+   100bc:	fe442783          	lw	a5,-28(s0)
+   100c0:	0007879b          	sext.w	a5,a5
+   100c4:	08078263          	beqz	a5,10148 <main+0xd0>
+   100c8:	100007b7          	lui	a5,0x10000
+   100cc:	ffd78793          	addi	a5,a5,-3 # ffffffd <__global_pointer$+0xffee65d>
+   100d0:	fef42023          	sw	a5,-32(s0)
+   100d4:	fe042783          	lw	a5,-32(s0)
+   100d8:	00ff7f33          	and	t5,t5,a5
+   100dc:	002f6f13          	ori	t5,t5,2
+   100e0:	fcf42e23          	sw	a5,-36(s0)
+   100e4:	fe042623          	sw	zero,-20(s0)
+   100e8:	0380006f          	j	10120 <main+0xa8>
+   100ec:	fe042423          	sw	zero,-24(s0)
+   100f0:	0100006f          	j	10100 <main+0x88>
+   100f4:	fe842783          	lw	a5,-24(s0)
+   100f8:	0017879b          	addiw	a5,a5,1
+   100fc:	fef42423          	sw	a5,-24(s0)
+   10100:	fe842783          	lw	a5,-24(s0)
+   10104:	0007871b          	sext.w	a4,a5
+   10108:	000f47b7          	lui	a5,0xf4
+   1010c:	23f78793          	addi	a5,a5,575 # f423f <__global_pointer$+0xe289f>
+   10110:	fee7d2e3          	bge	a5,a4,100f4 <main+0x7c>
+   10114:	fec42783          	lw	a5,-20(s0)
+   10118:	0017879b          	addiw	a5,a5,1
+   1011c:	fef42623          	sw	a5,-20(s0)
+   10120:	fec42783          	lw	a5,-20(s0)
+   10124:	0007871b          	sext.w	a4,a5
+   10128:	000027b7          	lui	a5,0x2
+   1012c:	70f78793          	addi	a5,a5,1807 # 270f <main-0xd969>
+   10130:	fae7dee3          	bge	a5,a4,100ec <main+0x74>
+   10134:	fe042783          	lw	a5,-32(s0)
+   10138:	00ff7f33          	and	t5,t5,a5
+   1013c:	000f6f13          	ori	t5,t5,0
+   10140:	fcf42e23          	sw	a5,-36(s0)
+   10144:	0200006f          	j	10164 <main+0xec>
+   10148:	100007b7          	lui	a5,0x10000
+   1014c:	ffd78793          	addi	a5,a5,-3 # ffffffd <__global_pointer$+0xffee65d>
+   10150:	fef42023          	sw	a5,-32(s0)
+   10154:	fe042783          	lw	a5,-32(s0)
+   10158:	00ff7f33          	and	t5,t5,a5
+   1015c:	000f6f13          	ori	t5,t5,0
+   10160:	fcf42e23          	sw	a5,-36(s0)
+   10164:	00100f1b          	addiw	t5,zero,1
+   10168:	020f1f13          	slli	t5,t5,0x20
+   1016c:	ffff0f13          	addi	t5,t5,-1
+   10170:	fec42783          	lw	a5,-20(s0)
+   10174:	0017879b          	addiw	a5,a5,1
+   10178:	fef42623          	sw	a5,-20(s0)
+   1017c:	fec42783          	lw	a5,-20(s0)
+   10180:	0007871b          	sext.w	a4,a5
+   10184:	00900793          	li	a5,9
+   10188:	f0e7d2e3          	bge	a5,a4,1008c <main+0x14>
+   1018c:	00000793          	li	a5,0
+   10190:	00078513          	mv	a0,a5
+   10194:	02813403          	ld	s0,40(sp)
+   10198:	03010113          	addi	sp,sp,48
+   1019c:	00008067          	ret
+ 
 
 ```
 **Extracting Unique Instructions:**
