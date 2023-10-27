@@ -75,6 +75,11 @@ int main()  {
             : "x30"
           );
          //printf("PIR Sensor ON, FAN is ON %d\n",motor_out);
+         
+		 for(i=0;i<1000;i++)
+		 {
+		 
+		 }
             motor_out = 0;
             dummy=0xFFFFFFFD;
 	    asm volatile(
@@ -117,6 +122,7 @@ int main()  {
 }
 
 }           
+
        
 
 ```
