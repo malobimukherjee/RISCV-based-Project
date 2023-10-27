@@ -300,7 +300,7 @@ Disassembly of section .text:
    100ec:	02c12403          	lw	s0,44(sp)
    100f0:	03010113          	addi	sp,sp,48
    100f4:	00008067          	ret
- 
+	
 
 ```
 **Extracting Unique Instructions:**
