@@ -327,26 +327,18 @@ for instruction in unique_instructions:
 The output of the code:
 
 ```bash
-Number of different instructions: 20
+Number of different instructions: 12
 List of unique instructions:
-bge
-slli
-blt
+mv
+ori
+andi
+sw
+lw
+and
 j
 li
-ld
-beqz
-ori
-mv
 or
-sext.w
-and
-andi
-ret
-addiw
-lw
-sd
-lui
-sw
 addi
+bne
+ret
 ```
