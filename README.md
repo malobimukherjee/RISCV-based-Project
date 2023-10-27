@@ -258,7 +258,6 @@ riscv64-unknown-elf-objdump -d -r Project_1 > asm.txt
 Assembly language instructions for the above code:
 
 ```bash
-
 Project_1:     file format elf32-littleriscv
 
 
@@ -306,7 +305,6 @@ Disassembly of section .text:
    100ec:	02c12403          	lw	s0,44(sp)
    100f0:	03010113          	addi	sp,sp,48
    100f4:	00008067          	ret
-	
 
 ```
 **Extracting Unique Instructions:**
