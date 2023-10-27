@@ -92,101 +92,122 @@ int main()  {
 
 ```
 
-Testing the C Code, changing the input value:
+**Testing the C Code, changing the input value:**
 
 ```bash
 #include<stdio.h>
 int main()  {
 
        int input_pirState;
-       int output_motorDir1;                        //Using clockwise direction only                       
-       int dummy;
+       int output_motorDir1;                        //Using clockwise direction only
+       int motor_out;                      
+       int dummy=0xFFFFFFFD;
        int i, j;
-        
-       for( i = 0; i<10; i++) 
+       
+       for( i = 0; i<10; i++)
+       //while(1)
        {
         // Read PIR sensor data into x30
-        
-        if(i<5)
- 			j=1;
- 			else
- 			j=0;
- 		asm volatile(
- 		"or x30, x30, %1\n\t"
- 		"andi %0, x30, 0x01\n\t"
- 		: "=r" (input_pirState)
- 		: "r" (j)
- 		: "x30"
- 		);
-	
-        /*dummy=0x0FFFFFFE;
-        asm volatile(
-		"and x30, x30, %1\n\t"
-    		"or x30, x30, %0\n\t"
-    		:
-		:"r"(dummy)
-		:"x30"
-		);
-	  
-	asm volatile(
-			"addi x10, x30, 0\n\t"
-			"or %0, x10, 1\n\t"
-			"add x30, x10, 0\n\t"
-			:"=r"(input_pirState)
-			:
-			:"x30","x10"
-			); 
-         */
-         
-        printf("reading sensor values --- PIR State %d\n",input_pirState);
        
-        
+              if(i<5)
+                        j=1;
+                        else
+                        j=0;
+                 
+             
+                  asm volatile(
+                  "or x30, x30, %1\n\t"
+                  "andi %0, x30, 0x01\n\t"
+                  : "=r" (input_pirState)
+                  : "r" (j)
+                  : "x30"
+                  );
+      
+       
+         
+            printf("reading sensor values --- PIR State %d\n",input_pirState);
+            
+            
 
-        //PIR sensor gives 1 if it detects motion
-        if (input_pirState != 0) {
-            dummy=0x0FFFFFFD;
-            asm volatile(
-            "and x30, x30, %0\n\t"     
-            "ori x30, x30,2\n\t"                 // output at 2nd bit (x30[1]), that switches on the motor
-            :"=r"(output_motorDir1)
-            :"r"(dummy)
-            :"x30"         //Motor turns ON
-        );
-         printf("PIR Sensor ON, FAN is ON %d\n",output_motorDir1);
-        for (i = 0; i < 10000; i++) {                //Delay
-            for (j = 0; j < 1000000; j++) {
-            }
-        }
-        asm volatile(
-            "and x30, x30, %0\n\t"     
-            "ori x30, x30,0\n\t"                 // output at 2nd bit (x30[1]), that switches OFF the motor
-            :"=r"(output_motorDir1)
-            :"r"(dummy)
-            :"x30"         //Motor turns OFF after few seconds
-        );
-        printf("Motor turns OFF after drying the hand %d\n",output_motorDir1);
-      }  
-        else {
-            //sensor not detecting motion
-            dummy=0x0FFFFFFD;
-            asm volatile(
-            "and x30, x30, %0\n\t"     
-            "ori x30, x30,0\n\t"            // output at 2nd bit (x30[1]) , that switches off the motor
-            :"=r"(output_motorDir1)
-            :"r"(dummy)
-            :"x30"
-        );
-        printf("PIR Sensor OFF, FAN is OFF %d\n",output_motorDir1);
-        }
-    asm volatile(
-            "li x30, 0xFFFFFFFF\n\t"
-        );     
-      
-    
-}
+            //PIR sensor gives 1 if it detects motion
+            if (j == 1)
+            {
+            
+                  motor_out = 1;
+                      dummy=0xFFFFFFFD;
+                      asm volatile(
+                      "and x30, x30, %0\n\t"    
+                      "ori x30, x30,2"                 // output at 2nd bit (x30[1]), that switches on the motor
+                      :
+                      :"r"(dummy)
+                      :"x30"         //Motor turns ON
+                      );
+                      asm volatile(
+                        "addi %0,x30, 0\n\t"
+                        :"=r"(output_motorDir1)
+                        :
+                        :"x30"
+                        );
+                   printf("PIR Sensor ON, FAN is ON %d\n",motor_out);
+                  //for (i = 0; i < 1000; i++) {                //Delay
+                      
+                  //}
+                  motor_out = 0;
+                  dummy=0xFFFFFFFD;
+                        asm volatile(
+                            "and x30, x30, %0\n\t"    
+                            "ori x30, x30,0"                 // output at 2nd bit (x30[1]), that switches OFF the motor
+                            :
+                            :"r"(dummy)
+                            :"x30"         //Motor turns OFF after few seconds
+                        );
+                        asm volatile(
+                              "addi %0,x30, 0\n\t"
+                              :"=r"(output_motorDir1)
+                              :
+                              :"x30"
+                              );
+                  
+                  printf("Motor turns OFF after drying the hand %d\n",motor_out);
+                  }  
+                  else {
+            
+                        motor_out=0;
+                        //output_motorDir1=0;
+                      //sensor not detecting motion
+                      dummy=0xFFFFFFFD;
+                      asm volatile(
+                      "and x30, x30, %0\n\t"    
+                      "ori x30, x30,0"            // output at 2nd bit (x30[1]) , that switches off the motor
+                      :
+                      :"r"(dummy)
+                      :"x30"
+                      );
+                  
+                  asm volatile(
+                      "addi %0,x30, 0\n\t"            
+                      :"=r"(output_motorDir1)
+                      :
+                      :"x30"
+                    );
+                  
+                        printf("PIR Sensor OFF, FAN is OFF %d\n",motor_out);
+                  }
+                
+      }
   return 0;
 }
+                
 ```
+Commands used to do spike simulation:
+
+```bash
+riscv64-unknown-elf-gcc -march=rv64i -mabi=lp64 -ffreestanding -o output1 Project_1.c
+spike pk output1
+```
+**Spike Output:**
+
+![image](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/15b3215d-3c12-4eec-83b2-dcf5c3a363c4)
 
 
 
