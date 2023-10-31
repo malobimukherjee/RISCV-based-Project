@@ -258,7 +258,7 @@ riscv64-unknown-elf-objdump -d -r Project_5 > asm.txt
 
 ![Screenshot from 2023-10-31 12-42-01](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/e355ad33-6ebd-4075-8c3f-e510d369f578)
 
-According to my code, when the input is HIGH, the output should be HIGH. The above waveform matches the expected output. The toggling observed in the output line after some time is because it is executing the last instruction, '00FF6633', and again, a new cycle is starting. While the input wire remains HIGH as written in the testbench after 4000 seconds without toggling.
+According to my code, when the input is HIGH, the output should be HIGH. The above waveform matches the expected output. The toggling observed in the output line after some time is because it is executing the last instruction, '00FF6F33', and again, a new cycle is starting. While the input wire remains HIGH as written in the testbench after 4000 seconds without toggling.
 
 ![Screenshot from 2023-10-31 12-41-30](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/5a7a47c8-d135-47f3-a6e6-65bb2f6b6012)
 
