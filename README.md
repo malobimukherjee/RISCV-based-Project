@@ -347,3 +347,8 @@ j
 li
 sw
 ```
+**Gate Level Synthesis**
+
+![Screenshot from 2023-11-01 01-29-21](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/482b97b1-e47e-487d-9f92-22082f65a033)
+
+
