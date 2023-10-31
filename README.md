@@ -251,8 +251,8 @@ spike pk output1
 I compiled the C code and converted into assembly language using the commands:
 
 ```bash
-riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -ffreestanding -nostdlib -o Project_1 Project_1.c 
-riscv64-unknown-elf-objdump -d -r Project_1 > asm.txt
+riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -ffreestanding -nostdlib -o Project_5 Project_1.c 
+riscv64-unknown-elf-objdump -d -r Project_5 > asm.txt
 ```
 **Function Simulation:**
 
