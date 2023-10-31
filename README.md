@@ -254,58 +254,59 @@ I compiled the C code and converted into assembly language using the commands:
 riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -ffreestanding -nostdlib -o Project_1 Project_1.c 
 riscv64-unknown-elf-objdump -d -r Project_1 > asm.txt
 ```
+**Function Simulation:**
+
+![Screenshot from 2023-10-31 12-42-01](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/e355ad33-6ebd-4075-8c3f-e510d369f578)
+
+![Screenshot from 2023-10-31 12-41-30](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/5a7a47c8-d135-47f3-a6e6-65bb2f6b6012)
+
+
+![Screenshot from 2023-10-31 12-44-18](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/af0ede81-6629-4cf3-bfec-f9ae99f94b3b)
+
+
 
 Assembly language instructions for the above code:
 
 ```bash
-Project_1:     file format elf32-littleriscv
+
+Project_5:     file format elf32-littleriscv
 
 
 Disassembly of section .text:
 
 00010054 <main>:
-   10054:	fd010113          	addi	sp,sp,-48
-   10058:	02812623          	sw	s0,44(sp)
-   1005c:	03010413          	addi	s0,sp,48
-   10060:	fec42783          	lw	a5,-20(s0)
-   10064:	00ff6f33          	or	t5,t5,a5
-   10068:	001f7793          	andi	a5,t5,1
-   1006c:	fef42423          	sw	a5,-24(s0)
-   10070:	fec42703          	lw	a4,-20(s0)
-   10074:	00100793          	li	a5,1
-   10078:	04f71663          	bne	a4,a5,100c4 <main+0x70>
-   1007c:	00100793          	li	a5,1
-   10080:	fef42023          	sw	a5,-32(s0)
-   10084:	ffd00793          	li	a5,-3
-   10088:	fef42223          	sw	a5,-28(s0)
-   1008c:	fe442783          	lw	a5,-28(s0)
-   10090:	00ff7f33          	and	t5,t5,a5
-   10094:	002f6f13          	ori	t5,t5,2
-   10098:	000f0793          	mv	a5,t5
-   1009c:	fcf42e23          	sw	a5,-36(s0)
-   100a0:	fe042023          	sw	zero,-32(s0)
-   100a4:	ffd00793          	li	a5,-3
-   100a8:	fef42223          	sw	a5,-28(s0)
-   100ac:	fe442783          	lw	a5,-28(s0)
-   100b0:	00ff7f33          	and	t5,t5,a5
-   100b4:	000f6f13          	ori	t5,t5,0
-   100b8:	000f0793          	mv	a5,t5
-   100bc:	fcf42e23          	sw	a5,-36(s0)
-   100c0:	0240006f          	j	100e4 <main+0x90>
-   100c4:	ffd00793          	li	a5,-3
-   100c8:	fef42223          	sw	a5,-28(s0)
-   100cc:	fe042023          	sw	zero,-32(s0)
-   100d0:	fe442783          	lw	a5,-28(s0)
-   100d4:	00ff7f33          	and	t5,t5,a5
-   100d8:	000f6f13          	ori	t5,t5,0
-   100dc:	000f0793          	mv	a5,t5
-   100e0:	fcf42e23          	sw	a5,-36(s0)
-   100e4:	00000793          	li	a5,0
-   100e8:	00078513          	mv	a0,a5
-   100ec:	02c12403          	lw	s0,44(sp)
-   100f0:	03010113          	addi	sp,sp,48
-   100f4:	00008067          	ret
-
+   10054:	fe010113          	addi	sp,sp,-32
+   10058:	00812e23          	sw	s0,28(sp)
+   1005c:	02010413          	addi	s0,sp,32
+   10060:	fe042623          	sw	zero,-20(s0)
+   10064:	ffd00793          	li	a5,-3
+   10068:	fef42423          	sw	a5,-24(s0)
+   1006c:	fec42783          	lw	a5,-20(s0)
+   10070:	fe842703          	lw	a4,-24(s0)
+   10074:	00ef7f33          	and	t5,t5,a4
+   10078:	00ff6f33          	or	t5,t5,a5
+   1007c:	001f7793          	andi	a5,t5,1
+   10080:	fef42223          	sw	a5,-28(s0)
+   10084:	fe442703          	lw	a4,-28(s0)
+   10088:	00100793          	li	a5,1
+   1008c:	02f71463          	bne	a4,a5,100b4 <main+0x60>
+   10090:	00200793          	li	a5,2
+   10094:	fef42623          	sw	a5,-20(s0)
+   10098:	ffd00793          	li	a5,-3
+   1009c:	fef42423          	sw	a5,-24(s0)
+   100a0:	fec42783          	lw	a5,-20(s0)
+   100a4:	fe842703          	lw	a4,-24(s0)
+   100a8:	00ef7f33          	and	t5,t5,a4
+   100ac:	00ff6f33          	or	t5,t5,a5
+   100b0:	fcdff06f          	j	1007c <main+0x28>
+   100b4:	fe042623          	sw	zero,-20(s0)
+   100b8:	ffd00793          	li	a5,-3
+   100bc:	fef42423          	sw	a5,-24(s0)
+   100c0:	fec42783          	lw	a5,-20(s0)
+   100c4:	fe842703          	lw	a4,-24(s0)
+   100c8:	00ef7f33          	and	t5,t5,a4
+   100cc:	00ff6f33          	or	t5,t5,a5
+   100d0:	fadff06f          	j	1007c <main+0x28>
 ```
 **Extracting Unique Instructions:**
 
@@ -331,18 +332,15 @@ for instruction in unique_instructions:
 The output of the code:
 
 ```bash
-Number of different instructions: 12
+Number of different instructions: 9
 List of unique instructions:
-mv
-ori
 andi
-sw
+or
 lw
+addi
 and
+bne
 j
 li
-or
-addi
-bne
-ret
+sw
 ```
