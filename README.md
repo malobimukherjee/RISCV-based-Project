@@ -362,6 +362,9 @@ write_verilog synth_processor_test.v
 
 ```bash
 iverilog -o test synth_processor_test-gls.v testbench.v sky130_sram_1kbyte_1rw1r_32x256_8.v sky130_fd_sc_hd.v primitives.v
+./test
+gtkwave waveform.vcd
+
 ```
 
 ![Screenshot from 2023-11-01 01-29-21](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/482b97b1-e47e-487d-9f92-22082f65a033)
