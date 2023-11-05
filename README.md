@@ -369,4 +369,7 @@ gtkwave waveform.vcd
 
 ![Screenshot from 2023-11-01 01-29-21](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/482b97b1-e47e-487d-9f92-22082f65a033)
 
+**Wrapper Module after Netlist generation**
+
+![Screenshot from 2023-11-05 21-55-09](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/e3f15ee7-8e7b-4d4f-a95b-c1a38a37b80b)
 
