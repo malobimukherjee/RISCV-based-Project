@@ -38,48 +38,53 @@
 ```bash
 
 int main()  {
-
+       
        int input_pirState;
-       //int output_fanspeed;
-       int output_motorDir1;                        //Using clockwise direction only                       
+       
+       int output_motorDir1=0;                        //Using clockwise direction only                       
        int dummy;
-       int i, j;
-       int motor_out;
+       dummy = 0xFFFFFFFD;
+       
+     
+	      asm volatile(
+	          "and x30, x30, %1\n\t"
+	          "or x30, x30, %0\n\t"
+	          :
+	          : "r"(output_motorDir1),"r"(dummy)  
+	          : "x30"                      
+	      );
+       
         while(1) {
         // Read PIR sensor data into x30
-	asm volatile(
-	    "or x30, x30, %1\n\t"
-            "andi %0, x30, 1"
-            : "=r"(input_pirState)
-            : "r" (j)
-            : "x30"
-          );
+	  asm volatile(
+              "andi %0, x30, 1\n\t"
+              : "=r"(input_pirState)
+              : 
+              : 
+            );
        //printf("reading sensor values --- PIR State %d\n",input_pirState);
         
 
         //PIR sensor gives 1 if it detects motion
-        if (j == 1) {
-            motor_out = 1;
+        if (input_pirState == 1) {
+            
+            output_motorDir1=2;
             dummy=0xFFFFFFFD;
             asm volatile(
-	    "and x30, x30, %0\n\t"
-            "ori x30, x30,2" 
+	    "and x30, x30, %1\n\t"
+            "or x30, x30, %0\n\t" 
             : 
-            : "r" (dummy)
+            : "r"(output_motorDir1),"r" (dummy)
             : "x30"
           );
-            asm volatile(
-	    "addi %0,x30, 0\n\t"
-            : "=r"(output_motorDir1)
-            : 
-            : "x30"
-          );
-         //printf("PIR Sensor ON, FAN is ON %d\n",motor_out);
-         
+            
+         //printf("PIR Sensor ON, FAN is ON %d\n",output_motorDir1);
+         /*
 		 for(i=0;i<1000;i++)
 		 {
 		 
 		 }
+		 
             motor_out = 0;
             dummy=0xFFFFFFFD;
 	    asm volatile(
@@ -96,31 +101,28 @@ int main()  {
             : 
             : "x30"
           );
+          */
         //printf("Motor turns OFF after drying the hand %d\n",motor_out);
       }  
         else {
             //sensor not detecting motion
+            output_motorDir1=0;
             dummy=0xFFFFFFFD;
-            motor_out=0;
-               asm volatile(
-	       "and x30, x30, %0\n\t"
-	       "ori x30, x30,0"
-               : 
-               : "r" (dummy)
-               : "x30"
-            );
-               asm volatile(
-	       "addi %0,x30, 0\n\t"
-               : "=r"(output_motorDir1)
-               : 
-               : "x30"
-            );
-            //printf("PIR Sensor OFF, FAN is OFF %d\n",motor_out);
+            asm volatile(
+	    "and x30, x30, %1\n\t"
+            "or x30, x30, %0\n\t" 
+            : 
+            : "r"(output_motorDir1),"r" (dummy)
+            : "x30"
+          );
+            //printf("PIR Sensor OFF, FAN is OFF %d\n",output_motorDir1);
         }
 
-    return 0;
+   
 }
 
+ return 0;
+ 
 }           
 
        
