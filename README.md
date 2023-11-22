@@ -425,8 +425,8 @@ Slack observed:
 I would like to express my gratitude to 
 ```bash
 	• Prof. Kunal Ghosh
-        • Dantu Nandini Devi, Senior, MS Student
-	• Kopparthi Dinesh Lingaiah
+        • Dantu Nandini Devi, Senior, MS Student, IIIT B
+	• Kopparthi Dinesh Lingaiah, IIIT B
 	• Mayank Kabra, TA
 ```
 for helping me to complete this project smoothly.
