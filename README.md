@@ -433,7 +433,6 @@ Magnified:
 
 ![Screenshot from 2023-11-22 22-20-38](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/7305085f-d1dd-40c9-a768-02880d0ef5ed)
 
-
 ## Acknowledgement
 
 I would like to express my gratitude to 
