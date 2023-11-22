@@ -423,9 +423,10 @@ Slack observed:
 ## Acknowledgement
 
 I would like to express my gratitude to 
+```bash
 	• Prof. Kunal Ghosh
         • Dantu Nandini Devi, Senior, MS Student
 	• Kopparthi Dinesh Lingaiah
 	• Mayank Kabra, TA
-
+```
 for helping me to complete this project smoothly.
