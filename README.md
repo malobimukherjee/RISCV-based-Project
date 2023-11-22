@@ -420,4 +420,13 @@ Slack observed:
 
 ![WhatsApp Image 2023-11-22 at 18 41 05](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/bce565b7-0b1b-4c50-9496-e4e48fbc0f82)
 
+## Acknowledgement
 
+I would like to express my gratitude to 
+
+• Prof. Kunal Ghosh
+• Dantu Nandini Devi, Senior, MS Student
+• Kopparthi Dinesh Lingaiah
+• Mayank Kabra, TA
+
+for helping me to complete this project smoothly.
