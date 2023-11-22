@@ -387,14 +387,32 @@ make mount
 
 ![Screenshot from 2023-11-22 19-01-50](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/53c1fdf1-cff0-4443-b497-72f6354ed4e3)
 
+```bash
+run_synthesis
+```
 ![Screenshot from 2023-11-22 19-02-07](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/363da4d6-1f80-4872-a30e-72eb443da031)
 
+```bash
+run_floorplan
+```
+
 ![Screenshot from 2023-11-22 19-02-32](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/9820acab-47b0-41f5-9c9e-b99d698ada1b)
+
+```bash
+run_placement
+```
 
 
 ![Screenshot from 2023-11-22 19-02-48](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/7e2ebf4c-05e1-4241-ac2b-a6bcad6b55d5)
 
+```bash
+run_cts
+run_routing
+```
+
 ![Screenshot from 2023-11-22 19-03-03](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/b43f990f-dedd-44f0-b042-f90077b24ffb)
+
+
 
 ![Screenshot from 2023-11-22 19-03-22](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/c43c4056-f7dd-47f4-80bf-bc9a341a93d4)
 
