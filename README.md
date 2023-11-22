@@ -420,6 +420,20 @@ Slack observed:
 
 ![WhatsApp Image 2023-11-22 at 18 41 05](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/bce565b7-0b1b-4c50-9496-e4e48fbc0f82)
 
+To see routing,
+We have to execute the command in results/routing:
+
+```bash
+magic -T /home/malobi/.volare/sky130A/libs.tech/magic/sky130A.tech lef read /home/malobi/Downloads/RUN_2023.11.22_12.39.23/tmp/merged.nom.lef def read /home/malobi/Downloads/RUN_2023.11.22_12.39.23/results/routing/wrapper.def
+```
+
+![Screenshot from 2023-11-22 22-15-25](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/eeb5660e-8d12-42e1-93e4-d7e0bd971d2c)
+
+Magnified:
+
+![Screenshot from 2023-11-22 22-20-38](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/7305085f-d1dd-40c9-a768-02880d0ef5ed)
+
+
 ## Acknowledgement
 
 I would like to express my gratitude to 
