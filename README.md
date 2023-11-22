@@ -420,6 +420,10 @@ Slack observed:
 
 ![WhatsApp Image 2023-11-22 at 18 41 05](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/bce565b7-0b1b-4c50-9496-e4e48fbc0f82)
 
+Power Report:
+
+![Screenshot from 2023-11-22 23-01-30](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/4de18d92-51b2-43eb-b78d-bdf41dd31f8c)
+
 To see routing,
 We have to execute the command in results/routing:
 
