@@ -382,7 +382,7 @@ Below are the commands to be executed:
 make mount
 ./flow.tcl -interactive
 % package require openlane 0.9
-% prep -design project
+% prep -design Project-1
 ```
 
 ![Screenshot from 2023-11-22 19-01-50](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/53c1fdf1-cff0-4443-b497-72f6354ed4e3)
