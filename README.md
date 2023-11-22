@@ -438,7 +438,7 @@ Magnified:
 I would like to express my gratitude to 
 ```bash
 	• Prof. Kunal Ghosh
-        • Dantu Nandini Devi, Senior, MS Student, IIIT B
+        • Dantu Nandini Devi, IIIT B
 	• Kopparthi Dinesh Lingaiah, IIIT B
 	• Mayank Kabra, TA
 ```
