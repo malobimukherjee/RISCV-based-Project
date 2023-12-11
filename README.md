@@ -416,6 +416,11 @@ run_routing
 
 ![Screenshot from 2023-11-22 19-03-22](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/c43c4056-f7dd-47f4-80bf-bc9a341a93d4)
 
+Number of DRC violations:
+
+![Screenshot from 2023-12-11 19-41-31](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/77f9897f-05a3-42b4-b65a-ff9f38e5d16c)
+
+
 Slack observed after routing:
 
 ![Screenshot from 2023-11-22 23-05-06](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/0a7f53b9-5ca0-4527-921e-7bc5139fa8de)
