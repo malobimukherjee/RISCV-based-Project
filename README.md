@@ -426,8 +426,13 @@ Slack observed after routing:
 ![Screenshot from 2023-11-22 23-05-06](https://github.com/malobimukherjee/RISCV-based-Project/assets/141206513/0a7f53b9-5ca0-4527-921e-7bc5139fa8de)
 
 **Performance Calculation:**
+
+
+
 Clock period = 25 ns.             (In file: wrapper.sdc)
 Setup slack from the above screenshot is 1.79 ns.
+
+
 
 ```bash
                               1
